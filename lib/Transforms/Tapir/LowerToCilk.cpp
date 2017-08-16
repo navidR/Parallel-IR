@@ -133,7 +133,12 @@ SmallVectorImpl<Function *>
 }
 
 bool LowerTapirToCilk::runOnModule(Module &M) {
-  if (skipModule(M))
+  
+  // ska124 : Disable lowering of TAPIR IR to CILK. There are many, many
+  // better ways of doing this but this is simplest. The best would be to 
+  // add a pass which prints out the bitcode using E_TapirLate pass point
+  // so that it runs right before this lowering pass.
+  if (skipModule(M) || true)
     return false;
 
   // Add functions that detach to the work list.
