@@ -1,3 +1,6 @@
+[![Snap Status](https://build.snapcraft.io/badge/sfu-arch/Parallel-IR.svg)](https://build.snapcraft.io/user/sfu-arch/Parallel-IR)
+
+
 Tapir/LLVM
 ================================
 
