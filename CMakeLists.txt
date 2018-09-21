@@ -243,7 +243,21 @@ if(WIN32 AND NOT UNIX)
     set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64")
   endif()
 endif()
+
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Amirali Sharifian")
+set(CPACK_PACKAGE_CONTACT "amiralis@sfu.ca")
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_DESCRIPTION "Parallel IR for LLVM")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Tapir/LLVM, a prototype compiler based on LLVM that implements the Tapir compiler IR extensions for fork-join parallelism.")
+set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PACKAGE_VERSION}")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PACKAGE_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.15), libgcc1 (>= 1:3.4), libjsoncpp1 (>= 1.7.4), libstdc++6 (>= 5.2), libtinfo5 (>= 6), binfmt-support, libedit2 (>= 2.11-20080614), libffi6 (>= 3.0.4), zlib1g (>= 1:1.2.0)")
+SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+SET(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+set(CPACK_COMPONENTS_ALL Libraries ApplicationData)
 include(CPack)
+include(InstallRequiredSystemLibraries)
 
 # Sanity check our source directory to make sure that we are not trying to
 # generate an in-tree build (unless on MSVC_IDE, where it is ok), and to make
@@ -996,9 +1010,4 @@ if(LLVM_DISTRIBUTION_COMPONENTS)
       message(FATAL_ERROR "Specified distribution component '${target}' doesn't have an install target")
     endif()
   endforeach()
-endif()
-
-# This allows us to deploy the Universal CRT DLLs by passing -DCMAKE_INSTALL_UCRT_LIBRARIES=ON to CMake
-if (MSVC)
-  include(InstallRequiredSystemLibraries)
 endif()
